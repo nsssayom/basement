@@ -24,7 +24,7 @@ class Buzzer:
         0 for infinite loop. For 0, background must be True.
         :param bool background: If True, main thread would not wait for beep
         to finish
-        :return True if success, Flase if failed
+        :return True if success, False if failed
         :raises ValueError: if duty cycle is greater than 1 and less than 0
         '''
         if (duty_cycle > 1 or duty_cycle < 0 or number_of_beep < 0):

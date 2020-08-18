@@ -18,7 +18,7 @@ GPIO.setup(red_pin, GPIO.OUT)
 GPIO.setup(green_pin, GPIO.OUT)
 GPIO.setup(blue_pin, GPIO.OUT)
 
-led_frequency = 100     # Setting PWM frequency to 100Hz
+led_frequency = 1000     # Setting PWM frequency to 100Hz
 
 red_led_pin = GPIO.PWM(red_pin, led_frequency)
 green_led_pin = GPIO.PWM(green_pin, led_frequency)

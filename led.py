@@ -1,6 +1,6 @@
 from time import sleep
-import RPi.GPIO as GPIO
 from threading import Thread
+import RPi.GPIO as GPIO 
 
 from config import red_led_pin, green_led_pin, blue_led_pin
 
@@ -26,6 +26,7 @@ class LED:
         "Yellow":   (100, 100, 0),
         "White":    (100, 100, 100)
     }
+
 
     def on(self, color, duty_cycle: float, single_flash_length: float,
            number_of_flash: int = 1, background=False):
@@ -79,7 +80,3 @@ class LED:
                 sleep(self.low_time)
 
 led = LED()
-
-led.on('Fuchsia', 0.5, .5, 5)
-led.on('Green', 0.5, .5, 5)
-led.on('Blue', 0.5, .5, 5)
