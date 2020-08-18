@@ -1,4 +1,3 @@
-import sys
 from threading import Thread
 import RPi.GPIO as GPIO  # Import Raspberry Pi GPIO library
 from time import sleep
@@ -40,13 +39,9 @@ class Buzzer:
 
         buzzer_thread = Thread(target=self._beep, daemon=True)
 
-        # try:
         buzzer_thread.start()
         if not background:
             buzzer_thread.join()
-        # except (KeyboardInterrupt, SystemExit):
-        #     print("Received keyboard interrupt, quitting Buzzer threads.")
-        #     sys.exit()
 
     def _beep(self):
         if self.beep_count > 0:

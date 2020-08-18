@@ -2,7 +2,7 @@ import sys
 from threading import Thread
 from mfrc522 import SimpleMFRC522
 
-from buzzer import Buzzer, buzzer
+from buzzer import Buzzer, buzzer           # noqa: F401
 from config import verified_card_id
 
 
@@ -12,8 +12,9 @@ class Rfid_reader:
     reader_thread = None
 
     def start_scan(self, on_success, on_failed, on_error):
-        reader_thread = Thread(target=self.read_card, args=(on_success,
-                                                            on_failed, on_error,), daemon=True)
+        reader_thread = Thread(target=self.read_card,
+                               args=(on_success, on_failed, on_error,),
+                               daemon=True)
         try:
             reader_thread.start()
             reader_thread.join()
