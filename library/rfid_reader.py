@@ -2,9 +2,9 @@ import sys
 from threading import Thread
 from mfrc522 import SimpleMFRC522
 
-from buzzer import buzzer           # noqa: F401
+from library.buzzer import buzzer           # noqa: F401
 from config import verified_card_id
-from led import led                 # noqa: F401
+from library.led import led                 # noqa: F401
 
 
 class Rfid_reader:

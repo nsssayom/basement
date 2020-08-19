@@ -61,10 +61,11 @@ class LED:
                 green_led_pin.start(self.green_duty_cycle)
                 blue_led_pin.start(self.blue_duty_cycle)
                 sleep(self.high_time)
-                red_led_pin.stop()
-                green_led_pin.stop()
-                blue_led_pin.stop()
-                sleep(self.low_time)
+                if self.low_time > 0:
+                    red_led_pin.stop()
+                    green_led_pin.stop()
+                    blue_led_pin.stop()
+                    sleep(self.low_time)
 
         elif self.flash_count == 0:
             while(True):
@@ -72,10 +73,11 @@ class LED:
                 green_led_pin.start(self.green_duty_cycle)
                 blue_led_pin.start(self.blue_duty_cycle)
                 sleep(self.high_time)
-                red_led_pin.stop()
-                green_led_pin.stop()
-                blue_led_pin.stop()
-                sleep(self.low_time)
+                if self.low_time > 0:
+                    red_led_pin.stop()
+                    green_led_pin.stop()
+                    blue_led_pin.stop()
+                    sleep(self.low_time)
 
 
 led = LED()

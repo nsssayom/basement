@@ -1,5 +1,5 @@
 import sys
-from read import rfid_reader
+from library.rfid_reader import rfid_reader
 from time import sleep
 
 
