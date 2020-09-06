@@ -3,7 +3,7 @@ from threading import Thread
 from mfrc522 import SimpleMFRC522
 
 from library.buzzer import buzzer           # noqa: F401
-from config import verified_card_id
+from library.rest_client import authenticate
 from library.led import led                 # noqa: F401
 
 
@@ -16,6 +16,7 @@ class Rfid_reader:
         reader_thread = Thread(target=self.read_card,
                                args=(on_success, on_failed, on_error,),
                                daemon=True)
+        # Start a new thread to read RFID
         try:
             reader_thread.start()
             reader_thread.join()
@@ -31,13 +32,13 @@ class Rfid_reader:
                 id, text = self.id_reader.read()
                 buzzer.beep(.3, 0.05, 3)        # Scanning tone
                 led.on('Yellow', .8, .05, 3, True)    # Scanning LED
-                if id == verified_card_id:
+                if authenticate(str(id)):
                     print("Access Authorized. ID: ", id)
                     # Authorization successful tone
                     buzzer.beep(0.3, 0.2, 2)
                     led.on('Green', 1, 1, 0, True)    # Scanning LED
                     on_success()
-                    # break
+                    break
                 else:
                     print("Access Denied. ID: ", id)
                     buzzer.beep(1, 0.4, 1)    # Authorization failed tone

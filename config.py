@@ -30,3 +30,15 @@ verified_card_id = 927274965454
 
 # Project root directory
 project_root = os.path.dirname(os.path.realpath(__file__))
+
+# socket.io server credentials
+
+socket_io_server_domain = "http://localhost"
+socket_io_server_port = "3000"
+socket_io_server_namespace = '/server_io'
+
+# Do not modify this line
+socket_io_server = socket_io_server_domain + ":" + socket_io_server_port
+
+# rest api credentials
+rest_server_base_url = "http://localhost:3000/"
