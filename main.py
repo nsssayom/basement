@@ -6,7 +6,6 @@ from config import socket_io_server, socket_io_server_namespace
 
 
 # callback functions for rfid reader
-
 def on_success():
     print("Success")
     sleep(2)
@@ -31,7 +30,9 @@ def on_error(error_msg=None):
 
 
 # initiate socket.io connection
-sio = socketio.Client()
+# sio = socketio.Client()
+
+sio = socketio.Client(ssl_verify=False)
 try:
     sio.connect(socket_io_server, namespaces=[socket_io_server_namespace])
 except socketio.exceptions.ConnectionError:
