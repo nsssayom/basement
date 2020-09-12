@@ -3,16 +3,12 @@ from library.rfid_reader import rfid_reader
 from time import sleep
 import socketio
 from config import socket_io_server, socket_io_server_namespace
+from library.buzzer import buzzer
 
 
 # callback functions for rfid reader
 def on_success():
-    print("Success")
-    sleep(2)
-    sio.emit('on_begin_scan', "Starting RFID Scan",
-             namespace=socket_io_server_namespace)
-    print("Reinitiating Scan")
-    rfid_reader.start_scan(on_success, on_failed, on_error)
+    print("Successful RFID Read. Waiting for Reset Signal.")
 
 
 def on_failed():
@@ -33,6 +29,7 @@ def on_error(error_msg=None):
 # sio = socketio.Client()
 
 sio = socketio.Client(ssl_verify=False)
+
 try:
     sio.connect(socket_io_server, namespaces=[socket_io_server_namespace])
 except socketio.exceptions.ConnectionError:
@@ -56,6 +53,32 @@ def on_io_connect():
 @sio.event(namespace=socket_io_server_namespace)
 def on_connected(msg):
     print("Msg from Socket Server: " + msg)
+
+
+@sio.event(namespace=socket_io_server_namespace)
+def on_product_found(msg):
+    print(msg)
+    buzzer.beep(0.3, 0.2, 2)
+
+
+@sio.event(namespace=socket_io_server_namespace)
+def on_product_not_found(msg):
+    print(msg)
+    buzzer.beep(1, 0.4, 1)
+
+
+@sio.event(namespace=socket_io_server_namespace)
+def on_end_session(msg):
+    print("Reinitiating Scan")
+    sio.emit('on_begin_scan', "Starting RFID Scan",
+             namespace=socket_io_server_namespace)
+    buzzer.beep(0.7, .1, 3)
+    rfid_reader.start_scan(on_success, on_failed, on_error)
+
+
+@sio.event(namespace=socket_io_server_namespace)
+def on_refresh(msg):
+    buzzer.beep(.2, 0.05, 4)
 
 
 rfid_reader.start_scan(on_success, on_failed, on_error)
